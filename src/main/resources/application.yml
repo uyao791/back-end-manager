@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-      name: haiyu
+      name: backend
   datasource:
     druid:
       url: jdbc:mysql://192.168.64.130:3306/backend_manager?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
