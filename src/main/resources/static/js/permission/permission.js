@@ -29,18 +29,18 @@ $(function() {
                 {type:'numbers'/*,width:"5%"*/}
                 /*,{field:'id', title:'id'}
                 ,{field:'parentId', title:'parentId'}*/
-                ,{field:'pname', title:'父级菜单',align:'center'/*,width:"10%"*/}
-                ,{field:'name', title:'菜单名称',align:'center'/*,width:"10%"*/}
-                ,{field:'descpt', title:'描述',align:'center'/*,width:"15%"*/}
-                ,{field:'url', title:'菜单url',align:'center'/*,width:"15%"*/}
-                ,{field:'createTime', title:'创建时间',align:'center'/*,width:"10%"*/}
-                ,{field:'updateTime', title:'更新时间',align:'center'/*,width:"10%"*/}
-                ,{fixed:'right',title:'操作',align:'center', toolbar:'#optBar'/*,width:"25%"*/}
+                ,{field:'pname', title:'pname',align:'center'/*,width:"10%"*/}
+                ,{field:'name', title:'name',align:'center'/*,width:"10%"*/}
+                ,{field:'descpt', title:'descpt',align:'center'/*,width:"15%"*/}
+                ,{field:'url', title:'menu url',align:'center'/*,width:"15%"*/}
+                ,{field:'createTime', title:'createTime',align:'center'/*,width:"10%"*/}
+                ,{field:'updateTime', title:'updateTime',align:'center'/*,width:"10%"*/}
+                ,{fixed:'right',title:'operation',align:'center', toolbar:'#optBar'/*,width:"25%"*/}
             ]],
             done: function(res, curr, count){
                 $("[data-field='pname']").children().each(function(){
                     if($(this).text()==''){
-                        $(this).text("根目录");
+                        $(this).text("root directory");
                     }else {
                         $(this).text($(this).text());
                     }
@@ -121,7 +121,7 @@ function edit(data,title){
         dataType:'json',
         async: true,
         success:function(data){
-            $("#pid").html("<option value='0'>根目录</option>");
+            $("#pid").html("<option value='0'>root directory</option>");
             $.each(data,function(index,item){
                 if(!parentId){
                     var option = new Option(item.name,item.id);

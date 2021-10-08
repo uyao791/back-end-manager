@@ -11,14 +11,14 @@
     <div class="layui-body" style="margin: 1%">
         <table id="roleList" lay-filter="roleTable"></table>
 
-        <button class="layui-btn layui-btn-normal" onclick="add()">新增</button>
+        <button class="layui-btn layui-btn-normal" onclick="add()">add</button>
 
         <script type="text/html" id="optBar">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">edit</a>
             {{#  if(d.roleStatus == '0'){ }}
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">恢复</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">recover</a>
             {{#  } else { }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">del"</a>
             {{#  } }}
         </script>
     </div>
@@ -30,19 +30,19 @@
             <input id="id" type="hidden" name="id"/>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">角色名称</label>
+                <label class="layui-form-label">roleName</label>
                 <div class="layui-input-inline">
                     <input id="roleName" name="roleName" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">角色描述</label>
+                <label class="layui-form-label">roleDesc</label>
                 <div class="layui-input-inline">
                     <input id="roleDesc" name="roleDesc" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">权限</label>
+                <label class="layui-form-label">permissions</label>
                 <div class="layui-input-inline">
                     <select name="permissions"  xm-select="permissions">
                         <!--<option value="1">北京</option>
@@ -55,8 +55,8 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-left: 10px;">
-                    <button class="layui-btn"  lay-submit="" lay-filter="roleSubmit">提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button class="layui-btn"  lay-submit="" lay-filter="roleSubmit">Submit</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">reset</button>
                 </div>
             </div>
         </form>

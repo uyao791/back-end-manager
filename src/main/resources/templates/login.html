@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--head部分-->
-<head th:include="layout :: htmlhead" th:with="title='后台管理'">
+<head th:include="layout :: htmlhead" th:with="title='Backend Manager'">
 </head>
 <style>
     body{
@@ -27,13 +27,13 @@
             <div class="grid-demo">
                 <form id="useLogin" class="layui-form" action="">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">用户名</label>
+                        <label class="layui-form-label">userName</label>
                         <div class="layui-input-inline">
                             <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input" type="tel"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">密&nbsp;&nbsp;码</label>
+                        <label class="layui-form-label">pass&nbsp;&nbsp;word</label>
                         <div class="layui-input-inline">
                             <input id="password" name="password" lay-verify="required" autocomplete="off" class="layui-input" type="password"/>
                         </div>
@@ -41,13 +41,13 @@
                     <div class="layui-form-item" style="margin-top: -20px;">
                         <label class="layui-form-label"></label>
                         <div class="layui-inline">
-                            <input type="checkbox" name="rememberMe" lay-skin="primary"  title="记住我"/>
+                            <input type="checkbox" name="rememberMe" lay-skin="primary"  title="remember me"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn" type="reset">重置</button>
-                            <button id="loginBtn" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="login">登录</button>
+                            <button class="layui-btn" type="reset">reset</button>
+                            <button id="loginBtn" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="login">login</button>
                         </div>
                     </div>
                 </form>

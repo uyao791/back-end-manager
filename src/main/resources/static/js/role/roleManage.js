@@ -29,20 +29,20 @@ $(function() {
             },
             cols: [[
                 {type:'numbers'}
-                ,{field:'roleName', title:'角色名称',align:'center'}
-                ,{field:'roleDesc', title:'角色描述',align:'center'}
-                ,{field:'permissions', title:'权限',align:'center'}
-                ,{field:'createTime', title:'创建时间',align:'center'}
-                ,{field:'updateTime', title:'更新时间',align:'center'}
-                ,{field:'roleStatus', title:'是否有效',align:'center'}
-                ,{fixed:'right',title:'操作',align:'center', toolbar:'#optBar'}
+                ,{field:'roleName', title:'roleName',align:'center'}
+                ,{field:'roleDesc', title:'roleDesc',align:'center'}
+                ,{field:'permissions', title:'permissions',align:'center'}
+                ,{field:'createTime', title:'createTime',align:'center'}
+                ,{field:'updateTime', title:'updateTime',align:'center'}
+                ,{field:'roleStatus', title:'roleStatus',align:'center'}
+                ,{fixed:'right',title:'operation',align:'center', toolbar:'#optBar'}
             ]],
             done: function(res, curr, count){
                 $("[data-field='roleStatus']").children().each(function(){
                     if($(this).text()=='1'){
-                        $(this).text("有效")
+                        $(this).text("enable")
                     }else if($(this).text()=='0'){
-                        $(this).text("失效")
+                        $(this).text("disable")
                     }
                 });
                 pageCurr=curr;

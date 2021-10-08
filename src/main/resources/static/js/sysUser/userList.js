@@ -26,12 +26,12 @@ $(function() {
             },
             cols: [[
                 {type:'numbers'}
-                ,{field:'sysUserName', title:'用户名',align:'center'}
-                ,{field:'roleName', title:'角色类型',align:'center'}
-                ,{field:'userPhone', title:'手机号',align:'center'}
-                ,{field:'regTime', title: '注册时间',align:'center'}
-                ,{field:'userStatus', title: '是否有效',align:'center'}
-                ,{title:'操作',align:'center', toolbar:'#optBar'}
+                ,{field:'sysUserName', title:'UserName',align:'center'}
+                ,{field:'roleName', title:'roleName',align:'center'}
+                ,{field:'userPhone', title:'userPhone',align:'center'}
+                ,{field:'regTime', title: 'regTime',align:'center'}
+                ,{field:'userStatus', title: 'userStatus',align:'center'}
+                ,{title:'operation',align:'center', toolbar:'#optBar'}
             ]],
             done: function(res, curr, count){
                 //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -41,9 +41,9 @@ $(function() {
                 console.log(curr);
                 $("[data-field='userStatus']").children().each(function(){
                     if($(this).text()=='1'){
-                        $(this).text("有效")
+                        $(this).text("enable")
                     }else if($(this).text()=='0'){
-                        $(this).text("失效")
+                        $(this).text("disable")
                     }
                 });
                 //得到数据总量
@@ -60,7 +60,7 @@ $(function() {
                 delUser(data,data.id,data.sysUserName);
             } else if(obj.event === 'edit'){
                 //编辑
-                openUser(data,"编辑");
+                openUser(data,"edit");
             }else if(obj.event === 'recover'){
                 //恢复
                 recoverUser(data,data.id);
