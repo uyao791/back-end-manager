@@ -68,7 +68,7 @@ function getParentArry(id, arry) {
 function updateUsePwd(){
     layer.open({
         type:1,
-        title: "修改密码",
+        title: "update password",
         fixed:false,
         resize :false,
         shadeClose: true,

@@ -93,7 +93,7 @@ function formSubmit(obj){
             }
         },
         error: function () {
-            layer.alert("操作请求错误，请您稍后再试",function(){
+            layer.alert("Operation failure, pls try again later!",function(){
                 layer.closeAll();
                 load(obj);
             });
@@ -101,9 +101,9 @@ function formSubmit(obj){
     });
 }
 
-//新增
+//add
 function add() {
-    edit(null,"新增");
+    edit(null,"add");
 }
 //打开编辑框
 function edit(data,title){
@@ -130,7 +130,7 @@ function edit(data,title){
                 formSelects.value('permissions', assistAuditArry);
             }
 
-            console.log(result);    //返回的结果
+            console.log(result);    //return的结果
         },
         error: function(id, url, searchVal, err){           //使用远程方式的error回调
                                                             //同上
@@ -169,8 +169,8 @@ function load(obj){
 //删除
 function delRole(obj,id) {
     if(null!=id){
-        layer.confirm('您确定要删除吗？', {
-            btn: ['确认','返回'] //按钮
+        layer.confirm('Are you sure you  to delete it?', {
+            btn: ['confirm','return'] //按钮
         }, function(){
             $.post("/role/updateRoleStatus",{"id":id,"status":0},function(data){
                 if (data.code == 1) {
@@ -190,8 +190,8 @@ function delRole(obj,id) {
 //恢复
 function recoverRole(obj,id) {
     if(null!=id){
-        layer.confirm('您确定要恢复吗？', {
-            btn: ['确认','返回'] //按钮
+        layer.confirm('Are you sure you  to recover it？', {
+            btn: ['confirm','return'] //按钮
         }, function(){
             $.post("/role/updateRoleStatus",{"id":id,"status":1},function(data){
                 if (data.code == 1) {

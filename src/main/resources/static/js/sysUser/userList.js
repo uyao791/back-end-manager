@@ -113,7 +113,7 @@ function formSubmit(obj){
             }
         },
         error: function () {
-            layer.alert("操作请求错误，请您稍后再试",function(){
+            layer.alert("Operation failure, pls try again later",function(){
                 layer.closeAll();
                 //加载load方法
                 load(obj);//自定义
@@ -124,7 +124,7 @@ function formSubmit(obj){
 
 //开通用户
 function addUser(){
-    openUser(null,"开通用户");
+    openUser(null,"open user");
 }
 function openUser(data,title){
     var roleId = null;
@@ -177,10 +177,10 @@ function delUser(obj,id,name) {
     var currentUser=$("#currentUser").html();
     if(null!=id){
         if(currentUser==id){
-            layer.alert("对不起，您不能执行删除自己的操作！");
+            layer.alert("Sorry， you can't del your owner！");
         }else{
-            layer.confirm('您确定要删除'+name+'用户吗？', {
-                btn: ['确认','返回'] //按钮
+            layer.confirm('Are you sure to del'+name+'user？', {
+                btn: ['confirm','return'] //按钮
             }, function(){
                 $.post("/user/updateUserStatus",{"id":id,"status":0},function(data){
                     if (data.code == 1) {
@@ -201,8 +201,8 @@ function delUser(obj,id,name) {
 //恢复
 function recoverUser(obj,id) {
     if(null!=id){
-        layer.confirm('您确定要恢复吗？', {
-            btn: ['确认','返回'] //按钮
+        layer.confirm('Are you sure you  to recover it?', {
+            btn: ['confirm','return']  //按钮
         }, function(){
             $.post("/user/updateUserStatus",{"id":id,"status":1},function(data){
                 if (data.code == 1) {

@@ -90,7 +90,7 @@ function formSubmit(obj){
             }
         },
         error: function () {
-            layer.alert("操作请求错误，请您稍后再试",function(){
+            layer.alert("Operaion failure, pls try again later",function(){
                 layer.closeAll();
                 load(obj);
             });
@@ -99,7 +99,7 @@ function formSubmit(obj){
 }
 //新增
 function add() {
-    edit(null,"新增");
+    edit(null,"Add");
 }
 //打开编辑框
 function edit(data,title){
@@ -171,8 +171,8 @@ function load(obj){
 //删除
 function del(obj,id) {
     if(null!=id){
-        layer.confirm('您确定要删除吗？', {
-            btn: ['确认','返回'] //按钮
+        layer.confirm('Are you sure you  to delete it?', {
+            btn: ['confirm','return']  //按钮
         }, function(){
             $.post("/permission/del",{"id":id},function(data){
                 if (data.code == 1) {
