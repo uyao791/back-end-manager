@@ -5,17 +5,17 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="sys_user_name" jdbcType="VARCHAR" property="sysUserName" />
-    <result column="sys_user_pwd" jdbcType="VARCHAR" property="sysUserPwd" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
-    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
-    <result column="reg_time" jdbcType="VARCHAR" property="regTime" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SYS_USER_NAME" jdbcType="VARCHAR" property="sysUserName" />
+    <result column="SYS_USER_PWD" jdbcType="VARCHAR" property="sysUserPwd" />
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />
+    <result column="USER_STATUS" jdbcType="INTEGER" property="userStatus" />
+    <result column="REG_TIME" jdbcType="VARCHAR" property="regTime" />
   </resultMap>
 
   <sql id="baseColumn">
-    id,sys_user_name,sys_user_pwd,user_status,reg_time,user_phone,role_id
+    ID,SYS_USER_NAME,SYS_USER_PWD,USER_STATUS,REG_TIME,USER_PHONE,ROLE_ID
   </sql>
 
 
@@ -23,16 +23,16 @@
     UPDATE base_admin_user
     <set>
       <if test="sysUserName != null">
-        sys_user_name = #{sysUserName},
+        SYS_USER_NAME = #{sysUserName},
       </if>
       <if test="sysUserPwd != null">
-        sys_user_pwd = #{sysUserPwd},
+        SYS_USER_PWD = #{sysUserPwd},
       </if>
       <if test="roleId != null">
-        role_id = #{roleId},
+        ROLE_ID = #{roleId},
       </if>
       <if test="userPhone != null">
-        user_phone = #{userPhone}
+        USER_PHONE = #{userPhone}
       </if>
     </set>
     WHERE id = #{id}
@@ -41,13 +41,13 @@
 
   <update id="updatePwd">
     UPDATE base_admin_user
-    set sys_user_pwd = #{password}
-    where sys_user_name = #{userName}
+    set SYS_USER_PWD = #{password}
+    where SYS_USER_NAME = #{userName}
   </update>
 
   <update id="updateUserStatus">
     UPDATE base_admin_user
-    SET user_status = #{status}
+    SET USER_STATUS = #{status}
     WHERE id = #{id}
   </update>
 
@@ -55,8 +55,8 @@
   <select id="getUserByUserName" resultMap="BaseResultMap">
     SELECT <include refid="baseColumn"/>
     FROM base_admin_user
-    WHERE sys_user_name = #{sysUserName}
-    and user_status = 1
+    WHERE SYS_USER_NAME = #{sysUserName}
+    and USER_STATUS = 1
     <if test="id != null">
       and id != #{id}
     </if>
@@ -65,27 +65,27 @@
   <select id="findByUserName" resultMap="BaseResultMap">
     SELECT <include refid="baseColumn"/>
     FROM base_admin_user
-    WHERE sys_user_name = #{userName}
-    and user_status = 1
+    WHERE SYS_USER_NAME = #{userName}
+    and USER_STATUS = 1
   </select>
 
   <select id="getUserList" resultType="com.backend.manager.dto.AdminUserDTO">
-    SELECT id, sys_user_name AS sysUserName ,role_id AS roleId,
-    (SELECT role_name FROM base_admin_role as r WHERE r.id = u.role_id) as roleName,
-    user_phone AS userPhone,reg_time AS regTime,user_status AS userStatus
-    FROM base_admin_user as u
+    SELECT id, SYS_USER_NAME AS sysUserName ,ROLE_ID AS roleId,
+    (SELECT role_name FROM base_admin_role  r WHERE r.id = u.ROLE_ID) as roleName,
+    USER_PHONE AS userPhone,REG_TIME AS regTime,USER_STATUS AS userStatus
+    FROM base_admin_user  u
     <where>
       <if test="sysUserName != null and sysUserName != '' ">
-        and sys_user_name LIKE '%' #{sysUserName} '%'
+        and SYS_USER_NAME LIKE '%' #{sysUserName} '%'
       </if>
       <if test="userPhone != null and userPhone != '' ">
-        and user_phone  LIKE '%' #{userPhone} '%'
+        and USER_PHONE  LIKE '%' #{userPhone} '%'
       </if>
       <if test="startTime != null and startTime != '' ">
-        and reg_time &gt;  #{startTime}
+        and REG_TIME &gt;  #{startTime}
       </if>
       <if test="endTime != null and endTime != '' ">
-        and reg_time &lt;  #{endTime}
+        and REG_TIME &lt;  #{endTime}
       </if>
     </where>
   </select>
