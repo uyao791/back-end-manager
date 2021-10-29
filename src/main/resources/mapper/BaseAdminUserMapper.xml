@@ -45,10 +45,58 @@
     where SYS_USER_NAME = #{userName}
   </update>
 
-  <insert id="insertUser">
-    insert base_admin_user
-    set SYS_USER_PWD = #{password}
-    where SYS_USER_NAME = #{userName}
+  <insert id="insertSelective" parameterType="com.example.demo.entity.BaseAdminUser">
+    insert into BASE_ADMIN_USER
+    <selectKey resultType="int" keyProperty="id" order="BEFORE">
+      select SEQ_ID.nextval   from dual
+    </selectKey>
+
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="sysUserName != null">
+        SYS_USER_NAME,
+      </if>
+      <if test="sysUserPwd != null">
+        SYS_USER_PWD,
+      </if>
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="userPhone != null">
+        USER_PHONE,
+      </if>
+      <if test="regTime != null">
+        REG_TIME,
+      </if>
+      <if test="userStatus != null">
+        USER_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="sysUserName != null">
+        #{sysUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUserPwd != null">
+        #{sysUserPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=NUMERIC},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=NUMERIC},
+      </if>
+    </trim>
   </insert>
 
   <update id="updateUserStatus">
@@ -82,10 +130,10 @@
     FROM base_admin_user  u
     <where>
       <if test="sysUserName != null and sysUserName != '' ">
-        and SYS_USER_NAME LIKE '%' #{sysUserName} '%'
+        and SYS_USER_NAME LIKE '%' ||#{sysUserName} ||'%'
       </if>
       <if test="userPhone != null and userPhone != '' ">
-        and USER_PHONE  LIKE '%' #{userPhone} '%'
+        and USER_PHONE  LIKE '%'|| #{userPhone}|| '%'
       </if>
       <if test="startTime != null and startTime != '' ">
         and REG_TIME &gt;  #{startTime}

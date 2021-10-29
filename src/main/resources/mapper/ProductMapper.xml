@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.manager.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.backend.manager.pojo.Product">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="NUMERIC" />
+      <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PRICE" javaType="java.math.BigDecimal" jdbcType="NUMERIC" />
+      <arg column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, PRICE, CREATE_DATE
+  </sql>
+  <select id="selectListByProduct"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PRODUCT
+    <where>
+      <if test="name != null and name != ''">
+        and NAME = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="price != null">
+        and PRICE = #{price,jdbcType=NUMERIC}
+      </if>
+      <if test="startTime != null and startTime != '' ">
+        and CREATE_DATE &gt;  #{startTime}
+      </if>
+      <if test="endTime != null and endTime != '' ">
+        and CREATE_DATE &lt;  #{endTime}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from PRODUCT
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PRODUCT
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.backend.manager.pojo.Product">
+    insert into PRODUCT (ID, NAME, PRICE, 
+      CREATE_DATE)
+    values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.backend.manager.pojo.Product">
+    insert into PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.backend.manager.pojo.Product">
+    update PRODUCT
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.backend.manager.pojo.Product">
+    update PRODUCT
+    set NAME = #{name,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=NUMERIC},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>

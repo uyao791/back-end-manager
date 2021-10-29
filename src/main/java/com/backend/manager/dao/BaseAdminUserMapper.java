@@ -25,6 +25,6 @@ public interface BaseAdminUserMapper extends MyMapper<BaseAdminUser> {
 
     int updatePwd(@Param("userName") String userName,@Param("password") String password);
 
-    int insertUser (BaseAdminUser user);
+    int insertSelective(BaseAdminUser record);
 
 }

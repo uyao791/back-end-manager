@@ -81,7 +81,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             user.setRegTime(DateUtils.getCurrentDate());
             user.setUserStatus(1);
             //user.setId(Integer.valueOf(SnowflakeIdWorker.generateStringId()));
-            int result = baseAdminUserMapper.insert(user);
+            int result = baseAdminUserMapper.insertSelective(user);
             if(result == 0){
                 data.put("code",0);
                 data.put("msg","新增失败！");
