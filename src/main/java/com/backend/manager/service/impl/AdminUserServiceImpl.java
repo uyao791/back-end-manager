@@ -2,6 +2,7 @@ package com.backend.manager.service.impl;
 
 import com.backend.manager.response.PageDataResult;
 import com.backend.manager.service.AdminUserService;
+import com.backend.manager.util.SnowflakeIdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.backend.manager.common.utils.DigestUtils;
@@ -79,6 +80,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             }
             user.setRegTime(DateUtils.getCurrentDate());
             user.setUserStatus(1);
+            //user.setId(Integer.valueOf(SnowflakeIdWorker.generateStringId()));
             int result = baseAdminUserMapper.insert(user);
             if(result == 0){
                 data.put("code",0);

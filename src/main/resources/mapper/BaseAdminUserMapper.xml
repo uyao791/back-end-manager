@@ -45,6 +45,12 @@
     where SYS_USER_NAME = #{userName}
   </update>
 
+  <insert id="insertUser">
+    insert base_admin_user
+    set SYS_USER_PWD = #{password}
+    where SYS_USER_NAME = #{userName}
+  </insert>
+
   <update id="updateUserStatus">
     UPDATE base_admin_user
     SET USER_STATUS = #{status}
