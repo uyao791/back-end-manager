@@ -10,3 +10,8 @@ JQuery  3.3.1
 
 ## 渲染模板
 Thymeleaf
+
+
+1.支持Mybatis generator 逆向工程生成代码
+2.支持导出Excel文档
+3.shiro权限控制
