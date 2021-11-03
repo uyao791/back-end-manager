@@ -3,6 +3,7 @@ package com.backend.manager.service;
 import com.backend.manager.dto.ProductSearchDTO;
 import com.backend.manager.pojo.Product;
 import com.backend.manager.response.PageDataResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,8 @@ public interface ProductService {
     List<Product> getProductExportList(ProductSearchDTO product);
 
     Map<String,Object> addProduct(Product user);
+
+    boolean batchImport(String fileName, MultipartFile file) throws Exception;
 
 
 }

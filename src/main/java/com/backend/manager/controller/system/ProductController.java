@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
@@ -111,16 +112,30 @@ public class ProductController {
         //填充内容
         List<Product> productList = productService.getProductExportList(parameter);
         List<List<Object>> rows = new ArrayList();
-        List<Object> row = new ArrayList();
         for(Product obj :productList){
+            List<Object> row = new ArrayList();
             row.add(obj.getId());
             row.add(obj.getName());
             row.add(obj.getPrice());
             row.add(DateUtils.getFormatTime(obj.getcreateDate(),"yyyy-MM-dd"));
+            rows.add(row);
         }
-        rows.add(row);
         data.setRows(rows);
         ExportExcelUtils.exportExcel(response,"ProductExport.xlsx",data);
+    }
+
+
+    @PostMapping("/import")
+    @ResponseBody
+    public Boolean addUser(@RequestParam("file") MultipartFile file) {
+        Boolean a = false;
+        String fileName = file.getOriginalFilename();
+        try {
+            a = productService.batchImport(fileName, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  a;
     }
 
 

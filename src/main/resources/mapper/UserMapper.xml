@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.manager.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.backend.manager.pojo.User">
+    <constructor>
+      <arg column="ID" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ENROL_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="DES" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+
+  <insert id="insertSelective" parameterType="com.backend.manager.pojo.User">
+    insert into TB_USER
+    <selectKey resultType="int" keyProperty="id" order="BEFORE">
+      select SEQ_ID.nextval   from dual
+    </selectKey>
+
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="enrolDate != null">
+        ENROL_DATE,
+      </if>
+      <if test="des != null">
+        DES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolDate != null">
+        #{enrolDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addUser" parameterType="com.backend.manager.pojo.User">
+    insert into TB_USER
+    <selectKey resultType="int" keyProperty="id" order="BEFORE">
+      select SEQ_ID.nextval   from dual
+    </selectKey>
+    (ID,name,phone,address,enrol_date,des)
+    (
+    #{id,jdbcType=NUMERIC},
+    #{name},
+    #{phone},
+    #{address},
+    #{enrolDate},
+    #{des}
+    )
+  </insert>
+
+  <update id="updateUserByName" parameterType="com.backend.manager.pojo.User">
+    update TB_USER
+    set
+    phone=#{phone},
+    address=#{address},
+    enrol_date=#{enrolDate},
+    des=#{des}
+    where name = #{name}
+  </update>
+
+  <select id="selectByName" resultType="java.lang.Integer">
+    SELECT
+    count(*)
+    FROM TB_USER
+    WHERE name=#{name}
+  </select>
+</mapper>
