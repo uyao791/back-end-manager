@@ -86,6 +86,30 @@ $(function() {
         window.location.href='../../product/productExport?name='+name+'&startTime='+startTime+'&endTime='+endTime;
     })
 
+
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#productImport' //绑定元素
+            ,url: '../..//product/batchImportProduct' //上传接口
+            ,accept: 'file'
+            ,done: function(res){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+
+                    layer.msg(res.url, {
+                        time: 6000, //6s后自动关闭
+                        icon:1
+                    });
+                });
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+    });
+
     //搜索框
     layui.use(['form','laydate'], function(){
         var form = layui.form ,layer = layui.layer

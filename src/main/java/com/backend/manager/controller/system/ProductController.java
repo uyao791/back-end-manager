@@ -125,6 +125,20 @@ public class ProductController {
     }
 
 
+    @PostMapping("/importProduct")
+    @ResponseBody
+    public Boolean importProduct(@RequestParam("file") MultipartFile file) {
+        Boolean a = false;
+        String fileName = file.getOriginalFilename();
+        try {
+            a = productService.batchImportProduct(fileName, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  a;
+    }
+
+
     @PostMapping("/import")
     @ResponseBody
     public Boolean addUser(@RequestParam("file") MultipartFile file) {
@@ -132,6 +146,19 @@ public class ProductController {
         String fileName = file.getOriginalFilename();
         try {
             a = productService.batchImport(fileName, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  a;
+    }
+
+    @PostMapping("/batchImportProduct")
+    @ResponseBody
+    public Boolean batchImportProduct(@RequestParam("file") MultipartFile file) {
+        Boolean a = false;
+        String fileName = file.getOriginalFilename();
+        try {
+            a = productService.batchImportProduct(fileName, file);
         } catch (Exception e) {
             e.printStackTrace();
         }

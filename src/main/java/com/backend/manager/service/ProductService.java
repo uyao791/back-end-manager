@@ -26,5 +26,6 @@ public interface ProductService {
 
     boolean batchImport(String fileName, MultipartFile file) throws Exception;
 
+    boolean batchImportProduct(String fileName, MultipartFile file) throws Exception;
 
 }

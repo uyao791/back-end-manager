@@ -10,6 +10,8 @@ import com.backend.manager.response.PageDataResult;
 import com.backend.manager.service.ProductService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -166,6 +169,66 @@ public class ProductServiceImpl implements ProductService {
             } else {
                 userMapper.updateUserByName(userResord);
                 System.out.println(" 更新 "+userResord);
+            }
+        }
+        return notNull;
+    }
+
+    @Override
+    public boolean batchImportProduct(String fileName, MultipartFile file) throws Exception {
+        boolean notNull = false;
+        List<Product> productList = new ArrayList<Product>();
+        if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
+            throw new MyException("上传文件格式不正确");
+        }
+        boolean isExcel2003 = true;
+        if (fileName.matches("^.+\\.(?i)(xlsx)$")) {
+            isExcel2003 = false;
+        }
+        InputStream is = file.getInputStream();
+        Workbook wb = null;
+        if (isExcel2003) {
+            wb = new HSSFWorkbook(is);
+        } else {
+            wb = new XSSFWorkbook(is);
+        }
+        Sheet sheet = wb.getSheetAt(0);
+        if(sheet!=null){
+            notNull = true;
+        }
+        Product product;
+        for (int r = 1; r <= sheet.getLastRowNum(); r++) {
+            Row row = sheet.getRow(r);
+            if (row == null){
+                continue;
+            }
+            product= new Product();
+
+            Long id =Long.parseLong(row.getCell(0).getStringCellValue()) ;
+
+
+            String name = row.getCell(1).getStringCellValue();
+
+            row.getCell(2).setCellType(Cell.CELL_TYPE_NUMERIC);
+            BigDecimal price = BigDecimal.valueOf(row.getCell(2).getNumericCellValue());
+
+            Date createDate = DateUtils.parseDate(row.getCell(3).getStringCellValue(),"yyyy-MM-dd");
+            product.setId(id);
+            product.setName(name);
+            product.setPrice(price);
+            product.setcreateDate(createDate);
+
+            productList.add(product);
+        }
+        for (Product obj : productList) {
+            Long id = obj.getId();
+            Product subProduct = productMapper.selectByPrimaryKey(id);
+            if (Objects.isNull(subProduct)) {
+                productMapper.insertSelective(obj);
+                System.out.println(" 插入 "+obj);
+            } else {
+                productMapper.updateByPrimaryKeySelective(obj);
+                System.out.println(" 更新 "+obj);
             }
         }
         return notNull;
